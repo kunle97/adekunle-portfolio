@@ -91,6 +91,11 @@ body {
 .subview-nav-btn-container {
   margin-bottom: 15px;
 }
+
+.contant-section-social-icons img {
+  width: 35px;
+}
+
 /*NAVBAR SECTION */
 @media screen and (max-width: 875px) {
   nav {
