@@ -1,0 +1,989 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=no"
+    />
+    <meta name="author" content="Adekunle Ademefun" />
+    <meta
+      name="description"
+      content="viewScroller plugin by Marcin Gierczak. This plugin allows creating fullscreen scrollable webpage."
+    />
+    <meta
+      name="keywords"
+      content="viewScroller, fullscreen, html fullpage, scroll page, page scrolling, page scroll, full scroll"
+    />
+    <title>Adekunle Ademefun Portfolio</title>
+    <link rel="stylesheet" href="assets/css/nav.css" />
+    <link rel="stylesheet" href="assets/css/nav-btn.css" />
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+      crossorigin="anonymous"
+    />
+
+    <script
+      type="text/javascript"
+      src="https://res.cloudinary.com/veseylab/raw/upload/v1636192990/magicmouse/magic_mouse-1.2.1.cdn.min.js"
+    ></script>
+    <script src="assets/js/particlejs/particles.js"></script>
+    <script src="assets/js/particlejs/app.js"></script>
+    <script src="assets/js/starback.js"></script>
+    <link rel="stylesheet" type="text/css" href="assets/css/viewScroller.css" />
+    <style>
+      /* Custom views styles */
+
+      body {
+        background: black;
+      }
+
+      /* Styles specific for this example */
+
+      a {
+        text-decoration: none;
+        font-size: 13px;
+        color: #000;
+      }
+
+      .menu {
+        position: fixed;
+        margin-top: 10px;
+        left: 10px;
+        width: 60%;
+        font-family: Arial;
+        font-size: 20px;
+        z-index: 10;
+      }
+
+      .forkme {
+        position: fixed;
+        z-index: 30;
+        top: 0;
+        right: 0;
+        border: 0;
+      }
+
+      .logo {
+        width: 80%;
+        min-width: 150px;
+        min-height: 150px;
+      }
+
+      input[type="button"] {
+        -webkit-appearance: none;
+        display: inline-block;
+        padding: 5px 10px;
+        font-size: 12px;
+        cursor: pointer;
+        text-align: center;
+        text-decoration: none;
+        outline: none;
+        color: #000;
+        background-color: #fff;
+        border: none;
+        border-radius: 5px;
+        box-shadow: 0 2px #000;
+      }
+
+      /* Extends predefined vs-center class */
+
+      .vs-center {
+        font-family: Arial, Tahoma;
+        font-size: 50px;
+        color: rgba(0, 0, 0, 0.6);
+      }
+
+      .experience-view {
+        /* padding-top: 30px; */
+      }
+      .experience-row {
+        display: flex;
+        margin-top: 100px;
+      }
+      .experience-img-container {
+        flex: 1;
+      }
+      .experience-text-right {
+        width: 100%;
+        text-align: right;
+        margin: 0;
+      }
+      .experience-img-right {
+        text-align: left;
+        float: left;
+        width: 350px;
+      }
+
+      .experience-text {
+        flex: 1;
+      }
+      .inner-experience-text-right {
+        float: right;
+        width: 300px;
+        position: relative;
+        top: 50px;
+        right: -50px;
+      }
+      .inner-experience-text-left {
+        width: 300px;
+        position: relative;
+        top: 50px;
+        left: -50px;
+      }
+      .experience-text-left {
+        width: 100%;
+        text-align: left;
+        margin: 0;
+      }
+      .experience-img-left {
+        text-align: right;
+        float: right;
+        width: 350px;
+      }
+
+      .experience-description {
+        background: #707070;
+        padding: 15px;
+        margin-top: 15px;
+        font-size: 10pt;
+      }
+      #canvas {
+        z-index: -1;
+        position: absolute;
+        width: 100%;
+        height: 100vh;
+      }
+      .ui-btn {
+        background: white;
+        color: black !important;
+        border: none;
+        border-radius: 5px;
+        padding: 5px 15px;
+        position: relative;
+        top: 5;
+        right: 5;
+        float: right;
+      }
+    </style>
+
+    <link rel="stylesheet" href="assets/css/home.css" />
+  </head>
+
+  <body>
+    <div class="container-fluid">
+      <nav id="desktop-nav" style="position: fixed">
+        <ul>
+          <li
+            class="magic-hover magic-hover__square contact-btn nav-btn vs-anchor"
+          >
+            <a href="#view-4" class="vs-anchor">Contact</a>
+          </li>
+          <li class="magic-hover magic-hover__square exp-btn nav-btn vs-anchor">
+            <a href="#view-3" class="vs-anchor">Experience</a>
+          </li>
+          <li
+            class="magic-hover magic-hover__square project-btn nav-btn vs-anchor"
+          >
+            <a href="#view-2" class="vs-anchor">Projects</a>
+          </li>
+          <li
+            class="magic-hover magic-hover__square home-btn nav-btn vs-anchor"
+          >
+            <a href="#view-1" class="vs-anchor">Home</a>
+          </li>
+
+          <script></script>
+          <li class="logo">
+            <a href="">
+              <img
+                src="assets/img/logo-white.png"
+                class="magic-hover__square"
+                width="50px"
+              />
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+    <div class="mainbag">
+      <div vs-anchor="view-1" class="mainview view1">
+        <!-- <canvas id="canvas"></canvas> -->
+        <div class="container">
+          <div class="row">
+            <div class="col-sm-12 col-md-9 align-self-center header-col">
+              <p class="greeting-text">Hello, My name is...</p>
+              <h1 class="name-text">Adekunle Ademefun.</h1>
+              <p class="position-text">I am a Blockchain Engineer.</p>
+              <p>
+                Welcome to my website! Here you can find all things about me and
+                my career over the years. I have been a web developer for 7
+                years now. I started my first “Hello World” project in the 5th
+                grade using python. I transitioned to java and from there I
+                leered about HTML and CSS and the rest was history. I attended
+                Pennsylvania State University for my bachelor’s degree in
+                Computer Science and attended Rutgers Newark to obtain my
+                master’s degree in Supply Chain Management. o Now enough of all
+                that Let’s talk about some fun stuff! In my spare time I like to
+                watch anime, Formula 1, and Premier League Football. I also love
+                to Hang out with friends in the city from time to time.
+              </p>
+            </div>
+            <div
+              class="col-md-3 img-col"
+              style="
+                height: 100vh;
+                background: url('assets/img/greyscale-lambo-portrait-with-burj-khalifa.png');
+              "
+            >
+              <img
+                src="assets/img/greyscale-lambo-portrait-with-burj-khalifa.png"
+                height="100%"
+                alt=""
+                data-0="background-position:0px 0px;"
+                data-100000="background-position:0px -50000px;"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div vs-anchor="view-2" class="mainview view2 project-view">
+        <div class="subbag">
+          <div
+            vs-anchor="subview-a"
+            class="subview subview-a project-rideshare"
+          >
+            <div class="container">
+              <div class="row" style="height: 100vh">
+                <div class="col-md-6 my-auto project-img-col">
+                  <div class="project-img-container align-middle">
+                    <a href="https://uber-clone-blockchain-five-psi.vercel.app"
+                      ><img
+                        class="magic-hover magic-hover__square"
+                        src="assets/img/project-screen-shots/rideshare-blockchain-app.png"
+                    /></a>
+                  </div>
+                </div>
+                <div class="col-md-6 my-auto">
+                  <div class="align-middle">
+                    <h2>Uber Blockchain Clone</h2>
+                    <div class="tech-row">
+                      <img
+                        src="assets/img/logos/7423888_react_react native_icon.png"
+                        width="50"
+                      />
+                      <img
+                        src="assets/img/logos/9055799_bxl_tailwind_css_icon.png"
+                        width="50"
+                      />
+                      <img src="assets/img/logos/solidity.png" width="50" />
+                      <img
+                        src="assets/img/logos/367627_html_html5_icon.png"
+                        width="50"
+                      />
+                    </div>
+                    <p class="proj-desc">
+                      This is an app that I created that emulates the popular
+                      ridesharing app Uber and instead of accepting USD for
+                      payment it accepts Ethereum. With the help of web3. Js and
+                      metamask you can request a ride with crypto! If only this
+                      was a real thing! This project took me about a week to
+                      complete. For the frontend I used NextJs/ReactJS, Tailwind
+                      CSS. For the backend I used Vercel, Sanity, Ethers.js.
+                    </p>
+                    <div class="subview-nav-btn-container">
+                      <input
+                        type="button"
+                        value="< Prev"
+                        class="vs-subview-prev subview-nav-btn"
+                      />
+                      <input
+                        type="button"
+                        value="Next >"
+                        class="vs-subview-next subview-nav-btn"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            vs-anchor="subview-b"
+            class="subview subview-b project-robinhood-clone"
+          >
+            <div class="container">
+              <div class="row" style="height: 100vh">
+                <div class="col-md-6 my-auto project-img-col">
+                  <div class="project-img-container align-middle">
+                    <img
+                      class="magic-hover magic-hover__square"
+                      src="assets/img/project-screen-shots/robinhood-blockcain.png"
+                    />
+                  </div>
+                </div>
+                <div class="col-md-6 my-auto">
+                  <div class="align-middle">
+                    <h2>Robinhood Blockchain Clone</h2>
+                    <div class="tech-row">
+                      <img
+                        src="assets/img/logos/7423888_react_react native_icon.png"
+                        width="50"
+                      />
+                      <img src="assets/img/logos/solidity.png" width="50" />
+                      <img src="assets/img/logos/moralis.png" width="50" />
+                      <img
+                        src="assets/img/logos/367627_html_html5_icon.png"
+                        width="50"
+                      />
+                    </div>
+                    <p class="proj-desc">
+                      This app is a crypto currency exchange dapp that uses a
+                      very familiar theme resembling a quite popular beginner
+                      stock trading app. This project took me about a week and
+                      half to create. The technologies I used for the frontend
+                      is NextJS,ReactJS. For the backend I used Solidity,
+                      Moralis, Sanity
+                    </p>
+                    <div class="subview-nav-btn-container">
+                      <input
+                        type="button"
+                        value="< Prev"
+                        class="vs-subview-prev subview-nav-btn"
+                      />
+                      <input
+                        type="button"
+                        value="Next >"
+                        class="vs-subview-next subview-nav-btn"
+                      />
+                    </div>
+
+                    <a
+                      href="https://github.com/kunle97/robinhood-clone-blockchain"
+                      ><img
+                        src="assets/img/logos/317712_code repository_github_repository_resource_icon.png"
+                        width="50"
+                    /></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            vs-anchor="subview-c"
+            class="subview subview-c project-music-nft"
+          >
+            <div class="container">
+              <div class="row" style="height: 100vh">
+                <div class="col-md-6 my-auto project-img-col">
+                  <div class="project-img-container align-middle">
+                    <img
+                      src="assets/img/project-screen-shots/music-nft-app.png"
+                      class="magic-hover magic-hover__square"
+                    />
+                  </div>
+                </div>
+                <div class="col-md-6 my-auto">
+                  <div class="align-middle">
+                    <h2>Music Player NFT Clone</h2>
+                    <div class="tech-row">
+                      <img
+                        src="assets/img/logos/7423888_react_react native_icon.png"
+                        width="50"
+                      />
+                      <img src="assets/img/logos/solidity.png" width="50" />
+                      <img src="assets/img/logos/moralis.png" width="50" />
+                      <img
+                        src="assets/img/logos/367627_html_html5_icon.png"
+                        width="50"
+                      />
+                    </div>
+                    <p class="proj-desc">
+                      Now this app is pretty cool not gonna lie. This app is
+                      special because it is the first app that I created a music
+                      NFT in. This app displays and plays all NFT that I have
+                      created on the Ethereum Rinkeyby Testnet. In the real
+                      world I see that app becoming somthing like an NFT
+                      display/profile for music artists and fans alike. This
+                      project took about a week to create. For the frontend I
+                      used ReactJS and for the backend I used Web3.js,
+                      HardHat.js, and Moralis
+                    </p>
+                    <div class="subview-nav-btn-container">
+                      <input
+                        type="button"
+                        value="< Prev"
+                        class="vs-subview-prev subview-nav-btn"
+                      />
+                      <input
+                        type="button"
+                        value="Next >"
+                        class="vs-subview-next subview-nav-btn"
+                      />
+                    </div>
+
+                    <a href="https://github.com/kunle97/spotify-blockchain"
+                      ><img
+                        src="assets/img/logos/317712_code repository_github_repository_resource_icon.png"
+                        width="50"
+                    /></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            vs-anchor="subview-d"
+            class="subview subview-d project-chat-dapp"
+          >
+            <div class="container">
+              <div class="row" style="height: 100vh">
+                <div class="col-md-6 my-auto project-img-col">
+                  <div class="project-img-container align-middle">
+                    <img
+                      class="magic-hover magic-hover__square"
+                      src="assets/img/project-screen-shots/chat-dapp.png"
+                    />
+                  </div>
+                </div>
+                <div class="col-md-6 my-auto">
+                  <div class="align-middle">
+                    <h2>Decentralized Chat App</h2>
+                    <div class="tech-row">
+                      <img
+                        src="assets/img/logos/7423888_react_react native_icon.png"
+                        width="50"
+                      />
+                      <img
+                        src="assets/img/logos/7422531_css3_css_file_development_icon.png"
+                        width="50"
+                      />
+                      <img
+                        src="assets/img/logos/367627_html_html5_icon.png"
+                        width="50"
+                      />
+                    </div>
+                    <p class="proj-desc">
+                      This is app is a decentralized chat application. You sign
+                      in with Metamask and that’s it! It allows you to chat with
+                      other users that are logged in without storing your
+                      messages in a centralized traditional database. This can
+                      be used as a messaging app that torts its ability to
+                      securely share messages with anonymity. For the frontend I
+                      used ReactJS/NextJS and for the backend I used Gun.js, and
+                      Sanity
+                    </p>
+                    <div class="subview-nav-btn-container">
+                      <input
+                        type="button"
+                        value="< Prev"
+                        class="vs-subview-prev subview-nav-btn"
+                      />
+                      <input
+                        type="button"
+                        value="Next >"
+                        class="vs-subview-next subview-nav-btn"
+                      />
+                    </div>
+
+                    <a href="https://github.com/kunle97/decentralized-chat-app"
+                      ><img
+                        src="assets/img/logos/317712_code repository_github_repository_resource_icon.png"
+                        width="50"
+                    /></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div vs-anchor="subview-e" class="subview subview-e project-ovalab">
+            <div class="container">
+              <div class="row" style="height: 100vh">
+                <div class="col-md-6 my-auto project-img-col">
+                  <div class="project-img-container align-middle">
+                    <img
+                      class="magic-hover magic-hover__square"
+                      src="assets/img/project-screen-shots/ovalab.png"
+                    />
+                  </div>
+                </div>
+                <div class="col-md-6 my-auto">
+                  <div class="align-middle">
+                    <h2>OvaLab</h2>
+                    <div class="tech-row">
+                      <img
+                        src="assets/img/logos/7423888_react_react native_icon.png"
+                        width="50"
+                      />
+                      <img src="assets/img/logos/firebase.png" width="40" />
+                    </div>
+                    <p class="proj-desc">
+                      I created this website at my current Job For their women’s
+                      health company. It provides information about its service
+                      as well as general information about deferent forms of
+                      women’s health. This site took me just about a week to
+                      complete however it is an ongoing project. I am still
+                      currently working on it and it has been about a month
+                      since its start. For the frontend I used ReactJS and for
+                      the backend I used Firebase.
+                    </p>
+                    <div class="subview-nav-btn-container">
+                      <input
+                        type="button"
+                        value="< Prev"
+                        class="vs-subview-prev subview-nav-btn"
+                      />
+                      <input
+                        type="button"
+                        value="Next >"
+                        class="vs-subview-next subview-nav-btn"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div vs-anchor="subview-f" class="subview subview-f project-labqnj">
+            <div class="container">
+              <div class="row" style="height: 100vh">
+                <div class="col-md-6 my-auto project-img-col">
+                  <div class="project-img-container align-middle">
+                    <img
+                      class="magic-hover magic-hover__square"
+                      src="assets/img/lasbqnj-screenshot.png"
+                    />
+                  </div>
+                </div>
+                <div class="col-md-6 my-auto">
+                  <div class="align-middle">
+                    <h2>LabQ NJ Office Website</h2>
+                    <div class="tech-row">
+                      <img
+                        src="assets/img/logos/4373205_laravel_logo_logos_icon.png"
+                        width="50"
+                      />
+                      <img
+                        src="assets/img/logos/7422531_css3_css_file_development_icon.png"
+                        width="50"
+                      />
+                      <img
+                        src="assets/img/logos/367627_html_html5_icon.png"
+                        width="50"
+                      />
+                    </div>
+                    <p class="proj-desc">
+                      I created this website for my companies New Jersey Office
+                      that I work at now. It simply displays and talks about the
+                      company as well as the services it offers and more. This
+                      site also took about a week and a half to completed
+                      initially. However I was still working on the website for
+                      about 2 months after its initial completion.
+                    </p>
+                    <input
+                      type="button"
+                      value="< Prev"
+                      class="vs-subview-prev subview-nav-btn"
+                    />
+                    <input
+                      type="button"
+                      value="Next >"
+                      class="vs-subview-next subview-nav-btn"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div vs-anchor="view-3" class="mainview view3 experience-view">
+        <div class="contianer desktop-experience-container">
+          <div class="row">
+            <div class="col-md-6 col-lg-6 col-xl-6">
+              <div class="experience-row">
+                <div class="experience-img-container">
+                  <img
+                    src="assets/img/labqnj.png"
+                    class="experience-img-left"
+                  />
+                </div>
+
+                <div class="experience-text">
+                  <div class="inner-experience-text-left">
+                    <h3 class="experience-text-right experience-company-name">
+                      LabQ Diagnostics
+                    </h3>
+                    <p class="experience-text-right experience-position">
+                      Senior React Developer
+                    </p>
+                    <p class="experience-text-right">Oct 2021 - Present</p>
+                    <div class="experience-description">
+                      <p class="experience-text-right">
+                        At LabQ Diagnostics I have created a plethora of
+                        websites for the companies many subsidiaries. I mainly
+                        use ReactJS to create these websites however I did end
+                        up using Laravel for one of the websites. The biggest
+                        difficulty I have faced at LabQ Diagnostics was probably
+                        a t times getting to deadlines. Now this doesn’t mean I
+                        didn’t do my work. It’s just that as soon as I finished
+                        a project there was another one ready to be initiated.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-6 col-lg-6 col-xl-6">
+              <div class="experience-row">
+                <div class="experience-img-container">
+                  <img
+                    src="assets/img/adaptive-financial-consulting.jpg"
+                    class="experience-img-left"
+                  />
+                </div>
+
+                <div class="experience-text">
+                  <div class="inner-experience-text-left">
+                    <h3 class="experience-text-right experience-company-name">
+                      Adaptive Financial Consulting
+                    </h3>
+                    <p class="experience-text-right experience-position">
+                      Senior React Developer
+                    </p>
+                    <p class="experience-text-right">Jan 2020 – Sept 2020</p>
+                    <div class="experience-description">
+                      <p class="experience-text-right">
+                        At Adaptive Financial Consulting most of my time was
+                        spent working on the front end for their various Saas
+                        applications using ReactJS. My team for the most part
+                        consisted of 5 developers including myself. We would
+                        often collaborate with the marketing team in order to
+                        better improve our products.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-6 col-lg-6 col-xl-6">
+              <div class="experience-row">
+                <div class="experience-text">
+                  <div class="inner-experience-text-right">
+                    <h3 class="experience-text-left experience-company-name">
+                      Consensys
+                    </h3>
+                    <p class="experience-text-left experience-position">
+                      Blockchain Engineer
+                    </p>
+                    <p class="experience-text-left">Dec 2018 – Nov 2019</p>
+                    <div class="experience-description">
+                      <p class="experience-text-left">
+                        At Consensys most of my time was spent working on smart
+                        contracts to for their internal NFT platform. I enjoyed
+                        quite a bit at Consensus. What I did enjoy the most was
+                        that the higher ups really understood their employees.
+                        They would do well to attend your needs so long as we
+                        did the work.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="experience-img-container">
+                  <img
+                    src="assets/img/consensys-office.jpeg"
+                    class="experience-img-right"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-6 col-lg-6 col-xl-6">
+              <div class="experience-row">
+                <div class="experience-text">
+                  <div class="inner-experience-text-right">
+                    <h3 class="experience-text-left experience-company-name">
+                      Gpool
+                    </h3>
+                    <p class="experience-text-left experience-position">
+                      Solidity Developer
+                    </p>
+                    <p class="experience-text-left">Dec 2017 – Nov 2018</p>
+                    <div class="experience-description">
+                      <p class="experience-text-left">
+                        At Gpool the majority of my time was spent working on
+                        developing smart contracts for their metaverse platform.
+                        I enjoyed quite a bit at Gpool. What I did enjoy the
+                        most was the flexibility to work since it was a contract
+                        and the other employees I collaborated with were very
+                        easy to work with.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="experience-img-container">
+                  <img
+                    src="assets/img/gpool.png"
+                    class="experience-img-right"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div vs-anchor="view-4" class="mainview view4">
+        <div class="subbag mobile-experience-container">
+          <div vs-anchor="subview-g" class="subview subview-g">
+            <div class="mobile-experience-img-container">
+              <img class="mobile-experience-img" src="assets/img/labqnj.png" />
+            </div>
+            <h3 class="experience-company">LabQ Diagnostics</h3>
+            <p class="experience-position">Senior React Developer</p>
+            <p class="experience-duration">Oct 2021 - Present</p>
+            <p class="mobile-experience-description">
+              At LabQ Diagnostics I have created a plethora of websites for the
+              companies many subsidiaries. I mainly use ReactJS to create these
+              websites however I did end up using Laravel for one of the
+              websites. The biggest difficulty I have faced at LabQ Diagnostics
+              was probably a t times getting to deadlines. Now this doesn’t mean
+              I didn’t do my work. It’s just that as soon as I finished a
+              project there was another one ready to be initiated.
+            </p>
+            <div class="exp-nav-btn-container">
+              <button
+                class="ui-btn exp-nav-btn vs-subview-prev prev-exp-btn-j"
+                value="&gt;"
+              >
+                < Prev
+              </button>
+
+              <button
+                class="ui-btn exp-nav-btn vs-subview-next next-exp-btn-g"
+                value="&gt;"
+              >
+                > Next
+              </button>
+            </div>
+          </div>
+
+          <div vs-anchor="subview-h" class="subview subview-h">
+            <div class="mobile-experience-img-container">
+              <img
+                class="mobile-experience-img"
+                src="assets/img/adaptive-financial-consulting.jpg"
+              />
+            </div>
+            <h3 class="experience-company">Adaptive Financial Consulting</h3>
+            <p class="experience-position">React Developer</p>
+            <p class="experience-duration">Jan 2020 – Sept 2020</p>
+            <p class="mobile-experience-description">
+              At Adaptive Financial Consulting most of my time was spent working
+              on the front end for their various Saas applications using
+              ReactJS. My team for the most part consisted of 5 developers
+              including myself. We would often collaborate with the marketing
+              team in order to better improve our products.
+            </p>
+            <div class="exp-nav-btn-container">
+              <button
+                class="ui-btn exp-nav-btn vs-subview-prev prev-exp-btn-h"
+                value="&gt;"
+              >
+                < Prev
+              </button>
+              <button
+                class="ui-btn exp-nav-btn vs-subview-next next-exp-btn-h"
+                value="&gt;"
+              >
+                > Next
+              </button>
+            </div>
+          </div>
+          <div vs-anchor="subview-i" class="subview subview-i">
+            <div class="mobile-experience-img-container">
+              <img
+                class="mobile-experience-img"
+                src="assets/img/consensys-office.jpeg"
+              />
+            </div>
+            <h3 class="experience-company">Consensys</h3>
+            <p class="experience-position">Blockchain Engineer</p>
+            <p class="experience-duration">Dec 2018 – Nov 2019</p>
+            <p class="mobile-experience-description">
+              At Consensys most of my time was spent working on smart contracts
+              to for their internal NFT platform. I enjoyed quite a bit at
+              Consensus. What I did enjoy the most was that the higher ups
+              really understood their employees. They would do well to attend
+              your needs so long as we did the work.
+            </p>
+            <div class="exp-nav-btn-container">
+              <button
+                class="ui-btn exp-nav-btn vs-subview-prev prev-exp-btn-i"
+                value="&gt;"
+              >
+                < Prev
+              </button>
+              <button
+                class="ui-btn exp-nav-btn vs-subview-next next-exp-btn-i"
+                value="&gt;"
+              >
+                > Next
+              </button>
+            </div>
+          </div>
+          <div vs-anchor="subview-j" class="subview subview-j">
+            <div class="mobile-experience-img-container">
+              <img class="mobile-experience-img" src="assets/img/gpool.png" />
+            </div>
+            <h3 class="experience-company">Gpool</h3>
+            <p class="experience-position">Solidity Developer</p>
+            <p class="experience-duration">Dec 2017 – Nov 2018</p>
+            <p class="mobile-experience-description">
+              At Gpool the majority of my time was spent working on developing
+              smart contracts for their metaverse platform. I enjoyed quite a
+              bit at Gpool. What I did enjoy the most was the flexibility to
+              work since it was a contract and the other employees I
+              collaborated with were very easy to work with.
+            </p>
+            <div class="exp-nav-btn-container">
+              <button
+                class="ui-btn exp-nav-btn vs-subview-prev prev-exp-btn-j"
+                value="&gt;"
+              >
+                < Prev
+              </button>
+
+              <button
+                class="ui-btn exp-nav-btn vs-subview-next next-exp-btn-j"
+                value="&gt;"
+              >
+                > Next
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div vs-anchor="view-5" class="mainview view5">
+        <div class="vs-center-wrap">
+          <div class="vs-center">
+            <div class="info">
+              <h2>Get Connected</h2>
+              <a href="mailto:adekunledev97@gmail.com"
+                ><button
+                  style="
+                    border: none;
+                    background: white;
+                    color: black !important;
+                    border-radius: 5px;
+                    font-size: 14pt;
+                    font-weight: 400;
+                    padding: 5px 15px;
+                  "
+                >
+                  Say What's Up
+                </button></a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="assets/js/jquery/jquery-3.1.0.min.js"></script>
+    <script src="assets/js/jquery/jquery.easing.min.js"></script>
+    <script src="assets/js/jquery/jquery.mousewheel.min.js"></script>
+    <script src="assets/js/viewScroller.js"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
+      integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB"
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      $(document).ready(function () {
+        // Sets viewScroller
+        $(".mainbag").viewScroller({
+          useScrollbar: false,
+          changeWhenAnim: false,
+        });
+      });
+    </script>
+    <script>
+      $(document).ready(function () {
+        options = {
+          cursorOuter: "circle-basic",
+          hoverEffect: "circle-move",
+          hoverItemMove: false,
+          defaultCursor: false,
+          outerWidth: 30,
+          outerHeight: 30,
+        };
+        magicMouse(options);
+      });
+    </script>
+    <script>
+      $(document).ready(function () {
+        const canvas = document.getElementById("canvas");
+        const starback = new Starback(canvas, {
+          type: "dot",
+          quantity: 100,
+          direction: 225,
+          backgroundColor: ["#000", "#000"],
+          randomOpacity: true,
+        });
+      });
+    </script>
+    <script>
+      $(document).ready(function () {
+        $(".next-exp-btn-g").click(function () {
+          console.log("Next Exp");
+          $.fn.viewScroller.showView("subview-h");
+        });
+        $(".next-exp-btn-h").click(function () {
+          console.log("Next Exp");
+          $.fn.viewScroller.showView("subview-i");
+        });
+        $(".next-exp-btn-i").click(function () {
+          console.log("Next Exp");
+          $.fn.viewScroller.showView("subview-j");
+        });
+        $(".next-exp-btn-j").click(function () {
+          console.log("Next Exp");
+          $.fn.viewScroller.showView("subview-g");
+        });
+
+        $(".prev-exp-btn-g").click(function () {
+          console.log("Next Exp");
+          $.fn.viewScroller.showView("subview-j");
+        });
+        $(".prev-exp-btn-h").click(function () {
+          console.log("Next Exp");
+          $.fn.viewScroller.showView("subview-g");
+        });
+        $(".prev-exp-btn-i").click(function () {
+          console.log("Next Exp");
+          $.fn.viewScroller.showView("subview-h");
+        });
+        $(".prev-exp-btn-j").click(function () {
+          console.log("Next Exp");
+          $.fn.viewScroller.showView("subview-i");
+        });
+      });
+    </script>
+  </body>
+</html>

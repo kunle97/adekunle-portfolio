@@ -1,0 +1,214 @@
+p,
+.nav-btn,
+h2,
+h3,
+nav ul li a {
+  color: white !important;
+}
+html,
+.pg-container {
+  overflow-x: hidden;
+}
+
+body {
+  background: black;
+}
+#mobile-nav {
+  display: none;
+}
+
+.pages {
+  height: 100vh;
+  background: black;
+  overflow: hidden;
+}
+
+.name-text {
+  font-size: 60pt;
+  color: white;
+}
+
+.position-text {
+  font-size: 60pt;
+}
+
+.img-col {
+  background: url("../img/greyscale-lambo-portrait-with-burj-khalifa.png");
+  background-position: center;
+  background-size: cover;
+}
+.project-img-container {
+  width: 100%;
+  height: 350px;
+  overflow: hidden;
+  /* border: 3px solid white; */
+  border-radius: 15px;
+  text-align: center;
+}
+.project-img-container img {
+  height: 100%;
+  text-align: center;
+  margin: auto;
+}
+.project-rideshare {
+  background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
+    url("../img/project-screen-shots/ride-share-blockchain-app-meta-mask.png");
+  background-size: cover;
+}
+.project-robinhood-clone {
+  background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
+    url("../img/project-screen-shots/robinhood-blockcain.png");
+  background-size: cover;
+}
+.project-music-nft {
+  background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
+    url("../img/project-screen-shots/music-nft-app.png");
+  background-size: cover;
+}
+.project-chat-dapp {
+  background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
+    url("../img/project-screen-shots/chat-dapp.png");
+  background-size: cover;
+}
+.project-ovalab {
+  background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
+    url("../img/project-screen-shots/ovalab.png");
+  background-size: cover;
+}
+.project-labqnj {
+  background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
+    url("../img/doctors.jpg ");
+  background-size: cover;
+}
+.mobile-experience-contianer {
+  display: none;
+}
+.subview-nav-btn {
+  color: black;
+  background: white;
+  padding: 5px 15px;
+}
+.subview-nav-btn-container {
+  margin-bottom: 15px;
+}
+/*NAVBAR SECTION */
+@media screen and (max-width: 875px) {
+  nav {
+    transform: rotate(360deg) translateX(0);
+  }
+  #mobile-nav {
+    display: block;
+  }
+  #desktop-nav {
+    display: none;
+  }
+  .img-col {
+    display: none;
+  }
+  .header-col {
+    padding-top: 75px;
+    height: 100vh;
+  }
+}
+
+/*Home  Section*/
+@media screen and (max-width: 1300px) {
+  .name-text,
+  .position-text {
+    font-size: 50pt;
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .name-text,
+  .position-text {
+    font-size: 40pt;
+  }
+  .img-col img {
+    display: none;
+  }
+  .header-col {
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
+      url("../img/greyscale-lambo-portrait-with-burj-khalifa.png");
+    background-size: cover;
+  }
+}
+
+@media screen and (max-width: 1100px) {
+  .name-text,
+  .position-text {
+    font-size: 30pt;
+  }
+}
+@media screen and (max-width: 450px) {
+  .header-col {
+    padding-top: 15px;
+  }
+}
+
+/*projects ssection*/
+@media screen and (max-width: 767px) {
+  .project-img-col {
+    margin: 15px 0 !important;
+    height: 400px;
+  }
+}
+@media screen and (max-width: 400px) {
+  .project-img-container {
+    height: 200px;
+  }
+  .project-img-col {
+    height: 250px;
+  }
+}
+/*Experience  Section*/
+@media screen and (max-width: 1331px) {
+  .experience-img-left {
+    width: 250px;
+  }
+  .experience-img-right {
+    width: 250px;
+  }
+  .experience-description {
+    font-size: 7pt;
+  }
+  .experience-company-name {
+    font-size: 12pt;
+  }
+}
+.view4 {
+  display: none;
+}
+.mobile-experience-contianer {
+  display: none !important;
+  /* overflow: auto; */
+}
+@media screen and (max-width: 1100px) {
+  .view4 {
+    display: block;
+  }
+  .view3 {
+    display: none !important;
+  }
+  .mobile-experience-contianer {
+    display: block;
+  }
+}
+.mobile-experience-img-container {
+  width: 100%;
+  height: 170px;
+  overflow: hidden;
+  margin-bottom: 15px;
+}
+.mobile-experience-container img {
+  width: 100%;
+}
+.exp-nav-btn-container {
+  display: flex;
+}
+.exp-nav-btn {
+  flex: 1;
+}
+.mobile-experience-container > .subview {
+  padding: 15px;
+}
